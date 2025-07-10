@@ -1,4 +1,5 @@
-# CareConnect - Student Wellness Management System
+# CareConnect
+### Student Wellness Management System
 
 ## 🏥 Project Overview
 
