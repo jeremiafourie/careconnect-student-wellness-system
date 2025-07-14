@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -31,16 +31,16 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="Labelname4" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="time" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="txttime" alignment="1" max="32767" attributes="0"/>
                                   <Component id="Labelname3" alignment="0" max="32767" attributes="0"/>
                                   <Component id="Labelname2" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="Labelname1" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="Labelname" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="date" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="counselor" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="surname" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="name" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="id" max="32767" attributes="0"/>
+                                  <Component id="txtdate" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtcoun" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtsurname" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtname" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="txtid" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -70,7 +70,7 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnadd" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="id" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtid" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -82,23 +82,23 @@
                           <Group type="102" attributes="0">
                               <Component id="Labelname" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                              <Component id="name" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtname" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="Labelname1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="surname" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtsurname" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="Labelname2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="counselor" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtcoun" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="Labelname3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="date" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtdate" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="Labelname4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="time" min="-2" max="-2" attributes="0"/>
+                              <Component id="txttime" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -115,9 +115,9 @@
         <Property name="text" type="java.lang.String" value="Name:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="name">
+    <Component class="javax.swing.JTextField" name="txtname">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nameActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtnameActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="Labelname1">
@@ -125,33 +125,36 @@
         <Property name="text" type="java.lang.String" value="Surname:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="surname">
+    <Component class="javax.swing.JTextField" name="txtsurname">
     </Component>
     <Component class="javax.swing.JLabel" name="Labelname2">
       <Properties>
         <Property name="text" type="java.lang.String" value="Counselor:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="counselor">
+    <Component class="javax.swing.JTextField" name="txtcoun">
     </Component>
     <Component class="javax.swing.JLabel" name="Labelname3">
       <Properties>
         <Property name="text" type="java.lang.String" value="Date(YYYY-MM-DD):"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="date">
+    <Component class="javax.swing.JTextField" name="txtdate">
     </Component>
     <Component class="javax.swing.JLabel" name="Labelname4">
       <Properties>
         <Property name="text" type="java.lang.String" value="Time:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="time">
+    <Component class="javax.swing.JTextField" name="txttime">
     </Component>
     <Component class="javax.swing.JButton" name="btnadd">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnaddActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btndelete">
       <Properties>
@@ -231,7 +234,7 @@
         <Property name="text" type="java.lang.String" value="Student ID"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="id">
+    <Component class="javax.swing.JTextField" name="txtid">
     </Component>
   </SubComponents>
 </Form>

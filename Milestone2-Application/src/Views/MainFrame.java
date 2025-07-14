@@ -3,7 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Views;
-
+import Models.DBConnection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author itumo
@@ -27,30 +31,30 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         Labelname = new javax.swing.JLabel();
-        name = new javax.swing.JTextField();
+        txtname = new javax.swing.JTextField();
         Labelname1 = new javax.swing.JLabel();
-        surname = new javax.swing.JTextField();
+        txtsurname = new javax.swing.JTextField();
         Labelname2 = new javax.swing.JLabel();
-        counselor = new javax.swing.JTextField();
+        txtcoun = new javax.swing.JTextField();
         Labelname3 = new javax.swing.JLabel();
-        date = new javax.swing.JTextField();
+        txtdate = new javax.swing.JTextField();
         Labelname4 = new javax.swing.JLabel();
-        time = new javax.swing.JTextField();
+        txttime = new javax.swing.JTextField();
         btnadd = new javax.swing.JButton();
         btndelete = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        id = new javax.swing.JTextField();
+        txtid = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         Labelname.setText("Name:");
 
-        name.addActionListener(new java.awt.event.ActionListener() {
+        txtname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nameActionPerformed(evt);
+                txtnameActionPerformed(evt);
             }
         });
 
@@ -63,6 +67,11 @@ public class MainFrame extends javax.swing.JFrame {
         Labelname4.setText("Time:");
 
         btnadd.setText("Add");
+        btnadd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnaddActionPerformed(evt);
+            }
+        });
 
         btndelete.setText("Delete");
         btndelete.addActionListener(new java.awt.event.ActionListener() {
@@ -100,16 +109,16 @@ public class MainFrame extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(Labelname4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(time)
+                                    .addComponent(txttime)
                                     .addComponent(Labelname3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(Labelname2, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(Labelname1, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(Labelname, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(date, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(counselor, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(surname, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(name)
-                                    .addComponent(id))
+                                    .addComponent(txtdate, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtcoun, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtsurname, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtname)
+                                    .addComponent(txtid))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnadd)
@@ -131,7 +140,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnadd)
-                            .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -141,23 +150,23 @@ public class MainFrame extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(Labelname)
                                 .addGap(7, 7, 7)
-                                .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(Labelname1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(surname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtsurname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(Labelname2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(counselor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtcoun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(Labelname3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(Labelname4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(time, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txttime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
@@ -165,17 +174,40 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameActionPerformed
+    private void txtnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nameActionPerformed
+    }//GEN-LAST:event_txtnameActionPerformed
 
     private void btndeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btndeleteActionPerformed
 
+    private void btnaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaddActionPerformed
+       String id = txtid.getText();
+       String name = txtname.getText();
+       String surname = txtsurname.getText();
+       String couns = txtcoun.getText();
+       String date = txtdate.getText();
+       String time = txttime.getText();
+       if(id.isEmpty()||name.isEmpty()||surname.isEmpty()||couns.isEmpty()||date.isEmpty()||time.isEmpty()){
+          JOptionPane.showMessageDialog(this, "please enter all fields", "Error", JOptionPane.ERROR_MESSAGE);
+       }else{
+           db.add(id, name, surname, couns, date, time);
+           JOptionPane.showMessageDialog(this, "added to database", "confirm!!", JOptionPane.ERROR_MESSAGE);
+           DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+           model.addRow(new Object[]{id,name,surname,couns,date,time});
+       }
+               
+       
+       
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnaddActionPerformed
+
+    
     /**
      * @param args the command line arguments
      */
+    public static DBConnection db = new DBConnection();
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -199,11 +231,17 @@ public class MainFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MainFrame().setVisible(true);
+                try {
+                    db.connect();
+                } catch (ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
     }
@@ -216,15 +254,19 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel Labelname4;
     private javax.swing.JButton btnadd;
     private javax.swing.JButton btndelete;
-    private javax.swing.JTextField counselor;
-    private javax.swing.JTextField date;
-    private javax.swing.JTextField id;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField name;
-    private javax.swing.JTextField surname;
-    private javax.swing.JTextField time;
+    private javax.swing.JTextField txtcoun;
+    private javax.swing.JTextField txtdate;
+    private javax.swing.JTextField txtid;
+    private javax.swing.JTextField txtname;
+    private javax.swing.JTextField txtsurname;
+    private javax.swing.JTextField txttime;
     // End of variables declaration//GEN-END:variables
+
+  
+
+   
 }
