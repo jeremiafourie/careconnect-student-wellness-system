@@ -1,0 +1,144 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 14 Jul 2025, 20:40:17
+    Author     : mosam
+*/
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+header{
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.9)),
+        url("../Media/navigation/students.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    display:flex;
+    flex-direction: column;
+}
+
+
+.nav {
+    height:95px;
+    background-color: white;
+    gap:80px;
+    display: flex;
+    justify-content:start;
+    align-items: center;
+}
+
+.logo img {
+    width: auto;
+    max-height: 70px;
+    padding-left: 16px;
+}
+
+.links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 30px;
+    align-items: end;
+    
+}
+
+.links li {
+    font-size: 18px;
+}
+
+.intro-message{
+    /*background-color: red;*/
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.intro-message h2{
+    width: 700px;
+    line-height: 1.5;
+    color: white;
+    font-weight: 700;
+    font-size: 35px;
+    
+}
+.intro-message a{
+    background-color: #065084;
+    border:none;
+    
+    font-weight: 500;  
+}
+
+.intro-message .appointment{
+    color: white;
+}
+.student-wellness{
+    /*height: 400px;*/
+    /*background-color: blue;*/
+    padding: 30px 16px;
+    /*background-color: blue;*/
+     overflow-wrap: break-word;
+
+}
+.student-wellness h2{
+    font-size: 40px;
+    font-weight: 800;
+    color: #065084;
+    margin-bottom: 16px;
+}
+
+.student-wellness .message{
+    line-height: 1.65;
+    width: 1200px;
+    margin-bottom: 16px;
+    margin-bottom: 65px;
+}
+
+.wellness-tips{
+/*    display:grid;
+    grid-template-columns: 1fr 1fr;
+    height:100%;*/
+    /*background-color: pink;*/
+    /*height: 500px;*/
+     padding:30px;
+}
+
+.tip{
+    /*margin-top: 30px;*/
+    /*background-color: red;*/
+    /*display: flex;*/
+    flex-direction: column;
+    /*gap: 25px;*/
+    overflow-wrap: break-word;
+    white-space: normal;
+    /*height: 200px;*/
+   
+}
+
+.tip p{
+    margin-top: 20px;
+    padding-right: 15px;
+}
+
+.tip .img-frame{
+    /*width: 56%;*/
+    height: 220px;
+    /*background-color: yellow;*/
+    display: block;
+    
+}
+.tip .img-frame img{
+    height: 100%;
+    width: auto;
+}
+
