@@ -23,7 +23,7 @@
                 <ul class="links">
                     <li>Home</li>
                     <li><a href="/Student/Views/register.jsp" class="btn btn-primary">Register</a></li>
-                    <li><a href="#" class="btn btn-primary">Login</a></li>
+                    <li><a href="/Student/Views/login.jsp" class="btn btn-primary">Login</a></li>
                 </ul>
             </div>
             
