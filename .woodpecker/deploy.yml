@@ -1,0 +1,41 @@
+when:
+  - event: push
+    branch: main
+    path:
+      include:
+        - web/**
+        - shared/**
+        - Dockerfile
+        - docker-compose.yml
+
+steps:
+  - name: deploy
+    image: docker:cli
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      HOST_DOMAIN:
+        from_secret: HOST_DOMAIN
+      TRAEFIK_ENTRYPOINTS:
+        from_secret: TRAEFIK_ENTRYPOINTS
+      TRAEFIK_TLS_RESOLVER:
+        from_secret: TRAEFIK_TLS_RESOLVER
+      NETWORK_NAME:
+        from_secret: NETWORK_NAME
+      NETWORK_EXTERNAL:
+        from_secret: NETWORK_EXTERNAL
+    commands:
+      - |
+        set -e
+        cat <<EOF > .env
+        ENABLE_TRAEFIK=true
+        TLS=true
+        HOST_DOMAIN=$HOST_DOMAIN
+        ENTRYPOINTS=$TRAEFIK_ENTRYPOINTS
+        TLS_RESOLVER=$TRAEFIK_TLS_RESOLVER
+        NETWORK_EXTERNAL=$NETWORK_EXTERNAL
+        NETWORK=$NETWORK_NAME
+        EOF
+        docker compose -p careconnect build --no-cache
+        docker compose -p careconnect down
+        docker compose -p careconnect up -d

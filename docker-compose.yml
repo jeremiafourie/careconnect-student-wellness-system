@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: careconnect-db
+    environment:
+      POSTGRES_DB: careconnect
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: careconnect2024
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database_schema.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - ${NETWORK:-web}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build: .
+    container_name: careconnect-web
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: careconnect
+      DB_USER: postgres
+      DB_PASSWORD: careconnect2024
+    restart: unless-stopped
+    expose:
+      - "8080"
+    networks:
+      - ${NETWORK:-web}
+    labels:
+      - "traefik.enable=${ENABLE_TRAEFIK:-true}"
+      - "traefik.http.routers.careconnect.rule=Host(`${HOST_DOMAIN:-careconnect.exequtech.com}`)"
+      - "traefik.http.routers.careconnect.entrypoints=${ENTRYPOINTS:-web}"
+      - "traefik.http.routers.careconnect.tls=${TLS:-false}"
+      - "traefik.http.routers.careconnect.tls.certresolver=${TLS_RESOLVER:-}"
+      - "traefik.http.services.careconnect.loadbalancer.server.port=8080"
+
+volumes:
+  postgres_data:
+
+networks:
+  web:
+    external: ${NETWORK_EXTERNAL:-true}
