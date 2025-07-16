@@ -9,5 +9,4 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class FeedbackPanel extends JPanel {
-   
 }
