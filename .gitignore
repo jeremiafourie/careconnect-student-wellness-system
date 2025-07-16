@@ -42,6 +42,8 @@ Thumbs.db
 # Database
 *.db
 *.sqlite
+careconnect_db/
+derby.log
 
 # Environment files
 .env
