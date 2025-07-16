@@ -4,6 +4,7 @@ import com.bc.shared.dto.UserRegistrationDto;
 import com.bc.shared.models.User;
 import com.bc.shared.utils.PasswordUtils;
 import com.bc.shared.utils.ValidationUtils;
+import com.bc.web.dao.EmailUtil;
 import com.bc.web.dao.UserDao;
 
 import jakarta.servlet.ServletException;
@@ -71,6 +72,16 @@ public class RegisterServlet extends HttpServlet {
             
             if (success) {
                 request.setAttribute("successMessage", "Registration successful! Please login.");
+                //send confirmation email
+                try {
+                        EmailUtil.sendEmail(user.getEmail(), user.getName() + " " + user.getSurname());
+                    } catch (Exception e) {
+                        System.err.println("❌ Failed to send email: " + e.getMessage());
+                        e.printStackTrace(); // show full trace
+                        request.setAttribute("errorMessage", "Registered, but failed to send confirmation email.");
+                    }
+
+                
                 request.getRequestDispatcher("/login.jsp").forward(request, response);
             } else {
                 errors.add("Registration failed. Please try again.");
