@@ -79,7 +79,7 @@ public class UserDao {
             
         } catch (SQLException e) {
             System.err.println("Error finding user by email: " + e.getMessage());
-            // todo
+            // TODO
         }
         
         return Optional.empty();
