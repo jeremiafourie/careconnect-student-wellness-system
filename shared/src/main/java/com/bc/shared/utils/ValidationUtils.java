@@ -53,11 +53,14 @@ public class ValidationUtils {
         if (studentNumber == null || studentNumber.trim().isEmpty()) {
             return false;
         }
-        return STUDENT_NUMBER_PATTERN.matcher(studentNumber.trim()).matches();
+        // Allow 000000 (admin) or standard 6-digit pattern
+        String trimmed = studentNumber.trim();
+        return STUDENT_NUMBER_PATTERN.matcher(trimmed).matches();
     }
     
     public static boolean isValidStudentNumber(int studentNumber) {
-        return studentNumber >= 100000 && studentNumber <= 999999;
+        // Allow 0 (admin student number 000000) or regular range
+        return studentNumber == 0 || (studentNumber >= 100000 && studentNumber <= 999999);
     }
     
     public static boolean isValidPassword(String password) {
@@ -106,7 +109,7 @@ public class ValidationUtils {
     }
     
     public static String getStudentNumberValidationMessage() {
-        return "Student number must be exactly 6 digits (e.g., 123456)";
+        return "Student number must be exactly 6 digits (e.g., 123456 or 000000 for admin)";
     }
     
     public static String getPasswordValidationMessage() {
