@@ -37,9 +37,9 @@ public class MainController {
     
     private void initializeControllers() {
         loginController = new LoginController(mainFrame.getLoginPanel(), authService);
-        counselorController = new CounselorController(mainFrame.getCounselorsPanel(), databaseService);
-        appointmentController = new AppointmentController(mainFrame.getAppointmentsPanel(), databaseService);
-        feedbackController = new FeedbackController(mainFrame.getFeedbackPanel(), databaseService);
+//        counselorController = new CounselorController(mainFrame.getCounselorsPanel(), databaseService);
+//        appointmentController = new AppointmentController(mainFrame.getAppointmentsPanel(), databaseService);
+//        feedbackController = new FeedbackController(mainFrame.getFeedbackPanel(), databaseService);
     }
     
     private void setupEventHandlers() {
@@ -52,9 +52,9 @@ public class MainController {
         mainFrame.showMainView(user);
         mainFrame.setStatusText("Logged in as " + user.getFullName());
         
-        counselorController.initialize(user.isAdmin());
-        appointmentController.initialize(user);
-        feedbackController.initialize(user);
+//        counselorController.initialize(user.isAdmin());
+//        appointmentController.initialize(user);
+//        feedbackController.initialize(user);
     }
     
     private void handleLogout() {
@@ -72,9 +72,9 @@ public class MainController {
             }
             currentUser = null;
             
-            counselorController.cleanup();
-            appointmentController.cleanup();
-            feedbackController.cleanup();
+//            counselorController.cleanup();
+//            appointmentController.cleanup();
+//            feedbackController.cleanup();
             
             mainFrame.showLoginView();
             mainFrame.setStatusText("Logged out");
