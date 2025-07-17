@@ -12,6 +12,7 @@ This is a comprehensive Java project implementing Core Java, OOP principles, GUI
 - **🖥️ Milestone 2 (Desktop)**: Java Swing wellness management app with JavaDB (30 marks)
 
 - **📦 Shared Module**: Common models, DTOs, and utilities
+  
 **GitHub Repo Link**: https://github.com/jeremiafourie/careconnect-student-wellness-system
 
 **Live Demo**: [https://careconnect.exequtech.com](https://careconnect.exequtech.com)
