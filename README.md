@@ -2,167 +2,122 @@
 
 ![Java](https://img.shields.io/badge/Java-17-orange) ![Jakarta EE](https://img.shields.io/badge/Jakarta%20EE-10-blue) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue) ![Docker](https://img.shields.io/badge/Docker-Ready-blue) ![License](https://img.shields.io/badge/License-Educational-green)
 
-## 🌟 Project Overview
+## 📋 PRG3781 Project 2025 - Belgium Campus
 
-CareConnect is a multi-module Maven project designed for BC Student Wellness Management consisting of:
+This is a comprehensive Java project implementing Core Java, OOP principles, GUI development with Swing, and database integration for the BC Student Wellness Management System.
 
-- **🌐 Web Application** (Milestone 1): JSP-based login/registration system with PostgreSQL
-- **🖥️ Desktop Application** (Milestone 2): Java Swing app that will communicate with the web app via REST API
-- **📦 Shared Module**: Common models, DTOs, and utilities used by both applications
+### Project Structure
 
-## 🚀 Live Demo
+- **🌐 Milestone 1 (Web)**: JSP login/registration system with PostgreSQL (20 marks)
+- **🖥️ Milestone 2 (Desktop)**: Java Swing wellness management app with JavaDB (30 marks)
+- **📦 Shared Module**: Common models, DTOs, and utilities
 
-Visit the live web application at: **[https://careconnect.exequtech.com](https://careconnect.exequtech.com)**
+**Live Demo**: [https://careconnect.exequtech.com](https://careconnect.exequtech.com)
 
-## 🛠️ Technology Stack
+## 🏗️ Architecture & Technologies
 
-- **Backend**: Jakarta EE 10, JSP/Servlets, JSTL
-- **Database**: PostgreSQL 15
-- **Frontend**: HTML5, CSS3 Grid/Flexbox, Vanilla JavaScript
-- **Build Tool**: Maven 3.9+
-- **Security**: BCrypt password hashing, PreparedStatements (SQL injection prevention)
-- **Application Server**: Jetty 12 (containerized)
-- **Containerization**: Docker & Docker Compose
-- **CI/CD**: Woodpecker CI
-- **Reverse Proxy**: Traefik (with automatic SSL)
+**Core Stack**: Java 17, Jakarta EE 10, PostgreSQL 15, Apache Derby (JavaDB), Docker
+**Frontend**: JSP/JSTL, HTML5/CSS3, Java Swing
+**Security**: BCrypt hashing, PreparedStatements, input validation
+**Build**: Maven multi-module, CI/CD with Woodpecker
 
-## Project Structure
+## 🎯 PRG3781 Requirements Implemented
+
+### Milestone 1: Web Application (JSP + PostgreSQL)
+
+- **JSP Pages**: index.jsp, login.jsp, register.jsp, dashboard.jsp
+- **Servlets**: RegisterServlet, LoginServlet with full validation
+- **Database**: PostgreSQL with users table, constraints, hashed passwords
+- **Session Management**: HttpSession with logout functionality
+
+### Milestone 2: Desktop Application (Swing + JavaDB)
+
+- **Core Java/OOP**: Inheritance, polymorphism, encapsulation, abstraction, collections, exception handling
+- **MVC Architecture**: Controllers, Models, Views with clean separation
+- **GUI**: Swing with tabs, navigation, input validation, confirmation dialogs
+- **CRUD Operations**: Appointments, Counselors, Feedback with JavaDB integration
+- **Features**: Appointment booking, counselor management, feedback system (1-5 rating)
+
+## 🏗️ Project Structure
 
 ```
 careconnect/
-├── pom.xml                    # Parent POM
-├── shared/                    # Shared module
-│   ├── pom.xml
-│   └── src/main/java/com/bc/shared/
-│       ├── models/            # Entity models
-│       ├── dto/               # Data Transfer Objects
-│       └── utils/             # Utility classes
-├── web/                       # Web module
-│   ├── pom.xml
-│   ├── src/main/java/com/bc/web/
-│   │   ├── config/            # Configuration classes
-│   │   ├── dao/               # Data Access Objects
-│   │   ├── servlets/          # Servlet controllers
-│   │   └── filters/           # Servlet filters
-│   └── src/main/webapp/
-│       ├── css/               # Stylesheets
-│       ├── *.jsp              # JSP pages
-│       └── WEB-INF/
-└── desktop/                   # Desktop module (Milestone 2)
-    └── pom.xml
+├── shared/           # Common models, DTOs, utilities
+├── web/             # Milestone 1: JSP/Servlet application
+│   ├── servlets/    # RegisterServlet, LoginServlet
+│   ├── webapp/      # JSP pages, CSS, resources
+│   └── config/      # DatabaseConfig for PostgreSQL
+└── desktop/         # Milestone 2: Swing application
+    ├── controllers/ # MVC controllers
+    ├── models/      # Appointment, Counselor, Feedback
+    ├── views/       # Swing GUI components
+    └── services/    # Database and authentication services
 ```
 
-## Features
+## 🚀 Quick Start
 
-### Authentication & Authorization
+### Prerequisites
 
-- User registration with validation
-- Secure login with BCrypt password hashing
-- Session management
-- Input validation and sanitization
+- Java 17+, Maven 3.6+, PostgreSQL 15+
+- For Docker: Docker Engine 20.10+ & Docker Compose V2
 
-### User Management
-
-- Student number format validation (A12345678)
-- Email and phone number validation
-- Password strength requirements
-- Duplicate user prevention
-
-### Security Features
-
-- SQL injection prevention using PreparedStatements
-- XSS protection
-- Session timeout configuration
-- Password hashing with BCrypt
-
-### Validation Rules
-
-- **Student Number**: Must be in format A12345678 (1 letter + 8 digits)
-- **Email**: Valid email format
-- **Phone**: 10 digits or international format (optional)
-- **Password**: 8-100 characters, must contain uppercase, lowercase, digit, and special character
-- **Names**: 2-50 characters, letters, spaces, hyphens, apostrophes only
-
-## 🔄 CI/CD Pipeline
-
-The project features automated deployment using Woodpecker CI.
-
-### Pipeline Configuration
-
-- **Trigger**: Push to `main` branch with changes to `web/`, `shared/`, `Dockerfile`, or `docker-compose.yml`
-- **Build**: Multi-stage Docker build with Maven and Jetty
-- **Deploy**: Automatic deployment to production server
-- **Monitoring**: Health checks and deployment notifications
-
-### Required Woodpecker Secrets
+### Local Development
 
 ```bash
-HOST_DOMAIN=careconnect.exequtech.com
-TRAEFIK_ENTRYPOINTS=websecure
-TRAEFIK_TLS_RESOLVER=letsencrypt
-NETWORK_NAME=web
-NETWORK_EXTERNAL=true
+# 1. Setup PostgreSQL database
+psql -U postgres -c "CREATE DATABASE careconnect;"
+psql -U postgres -d careconnect -f database_schema.sql
+
+# 2. Configure database connection in:
+# web/src/main/java/com/bc/web/config/DatabaseConfig.java
+
+# 3. Build and run
+mvn clean compile
+
+# Web app: Deploy to servlet container
+# Desktop app: cd desktop && mvn exec:java
 ```
 
-### Deployment Process
+### Docker Deployment
 
-1. Code push triggers Woodpecker CI
-2. Maven builds and tests the application
-3. Docker builds multi-stage container image
-4. Deployment creates `.env` file with configuration
-5. Docker Compose deploys with zero-downtime
-
-## 📊 Monitoring & Health Checks
-
-### Health Check Endpoint
-
-Visit `/health` for comprehensive system status:
-
-```
-✓ Database connection: SUCCESS
-✓ Users table exists
-✓ Users table accessible: 5 users found
+```bash
+docker compose up -d
 ```
 
-### Application Monitoring
+## 🔧 Key Features
 
-- **Health Checks**: Built-in health endpoint at `/health`
-- **Database Monitoring**: Connection status and table accessibility
-- **Environment Validation**: Configuration verification
-- **Container Health**: Docker health checks every 30 seconds
+### Web Application (Milestone 1)
+
+- **Authentication**: Registration/login with BCrypt password hashing
+- **Validation**: Student number (A12345678), email, password strength
+- **Database**: PostgreSQL with proper constraints and SQL injection prevention
+- **Session Management**: HttpSession with logout functionality
+
+### Desktop Application (Milestone 2)
+
+- **Wellness Management**: Appointments, counselors, feedback system
+- **Database**: JavaDB with full CRUD operations
+- **GUI**: Professional Swing interface with tabs, validation, confirmation dialogs
+- **Core Java**: Complete OOP implementation with MVC architecture
 
 ## 🌐 API Endpoints
 
-| Method | Endpoint     | Description          | Authentication |
-| ------ | ------------ | -------------------- | -------------- |
-| `GET`  | `/`          | Home page            | None           |
-| `GET`  | `/register`  | Registration form    | None           |
-| `POST` | `/register`  | Process registration | None           |
-| `GET`  | `/login`     | Login form           | None           |
-| `POST` | `/login`     | Process login        | None           |
-| `GET`  | `/dashboard` | User dashboard       | Required       |
-| `GET`  | `/logout`    | Logout               | Required       |
-| `GET`  | `/health`    | System health check  | None           |
+| Method | Endpoint     | Description          | Auth Required |
+| ------ | ------------ | -------------------- | ------------- |
+| `GET`  | `/`          | Home page            | No            |
+| `GET`  | `/register`  | Registration form    | No            |
+| `POST` | `/register`  | Process registration | No            |
+| `GET`  | `/login`     | Login form           | No            |
+| `POST` | `/login`     | Process login        | No            |
+| `GET`  | `/dashboard` | User dashboard       | Yes           |
+| `GET`  | `/logout`    | Logout               | Yes           |
+| `GET`  | `/health`    | System health check  | No            |
 
-## Error Handling
+## 🎓 Educational Project
 
-- Custom 404 and 500 error pages
-- Client-side form validation
-- Server-side validation with user-friendly error messages
-- Database connection error handling
+**PRG3781 Project 2025 - Belgium Campus**  
+Comprehensive Java assessment covering Core Java, OOP, GUI development, and database integration.
 
-## Configuration
+**Group Project Requirements**: 4-member teams, GitHub collaboration, presentation-based assessment (50 marks total)
 
-### Session Configuration
-
-- Session timeout: 30 minutes
-- HTTP-only cookies enabled
-- Secure cookies (set to false for development)
-
-## License
-
-This project is for educational purposes as part of the BC Student Wellness Management System coursework.
-
-## Support
-
-For support and questions, please refer to the project documentation or contact the development team.# CareConnect Deployment Mon 14 Jul 20:14:02 SAST 2025
+**Deployment**: Fully containerized with CI/CD pipeline, live at [careconnect.exequtech.com](https://careconnect.exequtech.com)
