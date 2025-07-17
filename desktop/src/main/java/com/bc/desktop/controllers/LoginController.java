@@ -107,4 +107,5 @@ public class LoginController {
     public void setLoginSuccessListener(Consumer<StudentUser> listener) {
         this.loginSuccessListener = listener;
     }
+    
 }

@@ -83,6 +83,7 @@ public class LoginPanel extends JPanel {
     
     public void showMessage(String message, boolean isError) {
         messageLabel.setText(message);
+        
         messageLabel.setForeground(isError ? Color.RED : Color.GREEN);
     }
     
