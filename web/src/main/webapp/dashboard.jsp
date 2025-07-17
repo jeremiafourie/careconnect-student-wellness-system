@@ -29,23 +29,23 @@
             
             <div class="features-grid">
                 <div class="feature-card">
-                    <h3>Profile Management</h3>
-                    <p>Update your personal information, contact details, and wellness preferences.</p>
+                    <h3>Appointment Management</h3>
+                    <p>Book, reschedule, and cancel appointments wth counselors. View your upcoming appointments and manage your schedule.</p>
                 </div>
                 
                 <div class="feature-card">
-                    <h3>Health Tracking</h3>
-                    <p>Monitor your wellness metrics, set health goals, and track your progress over time.</p>
+                    <h3>Counselor Directory</h3>
+                    <p>Browse available counselors by specialization, view their profiles, and select the right professional for your needs.</p>
                 </div>
                 
                 <div class="feature-card">
-                    <h3>Resource Center</h3>
-                    <p>Access wellness resources, articles, and tools to support your health journey.</p>
+                    <h3>Feedback System</h3>
+                    <p>Submit feedback about your counseling sessions with ratings (1-5 starts) and comments. View and manage your feedback history.</p>
                 </div>
                 
                 <div class="feature-card">
-                    <h3>Appointment Booking</h3>
-                    <p>Schedule appointments with wellness professionals and manage your healthcare calendar.</p>
+                    <h3>Desktop Application</h3>
+                    <p>Use the CareConnect desktop app for offline access to your appointments, counselor information, and feedback management.</p>
                 </div>
             </div>
             
