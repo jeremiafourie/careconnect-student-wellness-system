@@ -14,10 +14,12 @@ This is a comprehensive Java project implementing Core Java, OOP principles, GUI
 - **📦 Shared Module**: Common models, DTOs, and utilities
 
 **Group_P2 8**: `577881`, `600271`, `600576, 600586`
-  
+
 **GitHub Repo Link**: https://github.com/jeremiafourie/careconnect-student-wellness-system
 
 **Live Demo**: [https://careconnect.exequtech.com](https://careconnect.exequtech.com)
+
+**Admin Credentials for full CRUD access on Desktop App**: Student Number: `000000` and Password: `13Password79.`
 
 ## 🏗️ Architecture & Technologies
 
