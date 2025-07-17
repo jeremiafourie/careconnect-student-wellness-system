@@ -49,16 +49,6 @@
                            required>
                 </div>
                 
-                <!-- Remember Me temporarily disabled
-                <div class="form-group checkbox-group">
-                    <label for="rememberMe" class="checkbox-label">
-                        <input type="checkbox" id="rememberMe" name="rememberMe" value="true">
-                        <span class="checkmark"></span>
-                        Remember me for 30 days
-                    </label>
-                </div>
-                -->
-                
                 <button type="submit" class="btn">Sign In</button>
             </form>
             
