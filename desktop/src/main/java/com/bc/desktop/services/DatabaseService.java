@@ -9,26 +9,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseService {
-    private static final String JDBC_URL = "jdbc:derby:../careconnect_db;create=true";
+    private static final String JDBC_URL = "jdbc:derby:careconnect_db;create=true";
     private static DatabaseService instance;
     
     private DatabaseService() {
+        // Set Derby system properties
+        System.setProperty("derby.system.home", System.getProperty("user.dir"));
+        System.setProperty("derby.stream.error.field", "java.lang.System.err");
+        
+        // Load Derby driver
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            System.out.println("Derby driver loaded successfully");
+        } catch (ClassNotFoundException e) {
+            System.err.println("Derby driver not found: " + e.getMessage());
+            throw new RuntimeException("Derby driver not available", e);
+        }
         initializeDatabase();
     }
     
     public static synchronized DatabaseService getInstance() {
         if (instance == null) {
-            instance = new DatabaseService();
+            try {
+                instance = new DatabaseService();
+            } catch (Exception e) {
+                System.err.println("Failed to create DatabaseService instance: " + e.getMessage());
+                e.printStackTrace();
+                throw new RuntimeException("Database initialization failed", e);
+            }
         }
         return instance;
     }
     
     private void initializeDatabase() {
         try (Connection conn = DriverManager.getConnection(JDBC_URL)) {
+            System.out.println("Database connection established successfully");
             createTables(conn);
             insertSampleData(conn);
         } catch (SQLException e) {
             System.err.println("Error initializing database: " + e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("Failed to initialize database", e);
         }
     }
     
@@ -327,6 +348,10 @@ public class DatabaseService {
             }
         } catch (SQLException e) {
             System.err.println("Error saving counselor: " + e.getMessage());
+            if (e.getMessage().contains("duplicate") || e.getMessage().contains("unique")) {
+                throw new RuntimeException("Email address already exists");
+            }
+            throw new RuntimeException("Database error: " + e.getMessage());
         }
         
         return false;
@@ -495,5 +520,99 @@ public class DatabaseService {
             System.err.println("Error getting average rating: " + e.getMessage());
         }
         return 0.0;
+    }
+    
+    // Test database connection
+    public boolean testConnection() {
+        try (Connection conn = DriverManager.getConnection(JDBC_URL)) {
+            return conn != null && !conn.isClosed();
+        } catch (SQLException e) {
+            System.err.println("Database connection test failed: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    // Check if a counselor is available at a specific time slot
+    public boolean isTimeSlotAvailable(Long counselorId, LocalDateTime appointmentTime) {
+        String sql = "SELECT COUNT(*) FROM appointments WHERE counselor_id = ? AND appointment_datetime = ? AND status != 'CANCELLED'";
+        
+        try (Connection conn = DriverManager.getConnection(JDBC_URL);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setLong(1, counselorId);
+            stmt.setTimestamp(2, Timestamp.valueOf(appointmentTime));
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) == 0; // Available if count is 0
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error checking time slot availability: " + e.getMessage());
+        }
+        
+        return false;
+    }
+    
+    // Get available time slots for a counselor on a specific date
+    public List<LocalDateTime> getAvailableTimeSlots(Long counselorId, java.time.LocalDate date) {
+        List<LocalDateTime> availableSlots = new ArrayList<>();
+        
+        // Generate working hours slots (9 AM to 5 PM, every hour)
+        for (int hour = 9; hour <= 17; hour++) {
+            LocalDateTime slot = date.atTime(hour, 0);
+            if (isTimeSlotAvailable(counselorId, slot)) {
+                availableSlots.add(slot);
+            }
+        }
+        
+        return availableSlots;
+    }
+    
+    // Get booked appointments for a counselor on a specific date
+    public List<Appointment> getCounselorAppointments(Long counselorId, java.time.LocalDate date) {
+        List<Appointment> appointments = new ArrayList<>();
+        String sql = "SELECT * FROM appointments WHERE counselor_id = ? AND DATE(appointment_datetime) = ? AND status != 'CANCELLED' ORDER BY appointment_datetime";
+        
+        try (Connection conn = DriverManager.getConnection(JDBC_URL);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setLong(1, counselorId);
+            stmt.setDate(2, java.sql.Date.valueOf(date));
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Appointment appointment = new Appointment();
+                    appointment.setId(rs.getLong("id"));
+                    appointment.setStudentNumber(rs.getInt("student_number"));
+                    appointment.setCounselorId(rs.getLong("counselor_id"));
+                    appointment.setCounselorName(rs.getString("counselor_name"));
+                    appointment.setAppointmentDateTime(rs.getTimestamp("appointment_datetime").toLocalDateTime());
+                    appointment.setStatus(Appointment.Status.valueOf(rs.getString("status")));
+                    appointment.setNotes(rs.getString("notes"));
+                    appointment.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
+                    appointment.setUpdatedAt(rs.getTimestamp("updated_at").toLocalDateTime());
+                    appointments.add(appointment);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error getting counselor appointments: " + e.getMessage());
+        }
+        
+        return appointments;
+    }
+    
+    // Shutdown database properly
+    public void shutdown() {
+        try {
+            DriverManager.getConnection("jdbc:derby:;shutdown=true");
+        } catch (SQLException e) {
+            // Derby shutdown throws an exception even on successful shutdown
+            if (e.getErrorCode() == 50000 && "XJ015".equals(e.getSQLState())) {
+                System.out.println("Derby shutdown successfully");
+            } else {
+                System.err.println("Error during Derby shutdown: " + e.getMessage());
+            }
+        }
     }
 }

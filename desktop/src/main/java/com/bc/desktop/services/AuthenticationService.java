@@ -27,11 +27,12 @@ public class AuthenticationService {
     
     public StudentUser authenticate(String studentNumber, String password) throws AuthenticationException {
         try {
-            int studentNum = Integer.parseInt(studentNumber);
+            // Ensure student number is properly formatted as 6 digits
+            String formattedStudentNumber = String.format("%06d", Integer.parseInt(studentNumber));
             
             String loginData = String.format(
-                "studentNumber=%d&password=%s", 
-                studentNum, 
+                "studentNumber=%s&password=%s", 
+                formattedStudentNumber, 
                 java.net.URLEncoder.encode(password, "UTF-8")
             );
             

@@ -23,7 +23,18 @@ public class MainController {
     
     private void initializeServices() {
         authService = new AuthenticationService();
-        databaseService = DatabaseService.getInstance();
+        try {
+            databaseService = DatabaseService.getInstance();
+            System.out.println("Database service initialized successfully");
+        } catch (RuntimeException e) {
+            System.err.println("Failed to initialize database service: " + e.getMessage());
+            e.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(null, 
+                "Database initialization failed: " + e.getMessage() + 
+                "\nPlease ensure Derby database is properly configured.", 
+                "Database Error", 
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
     }
     
     private void initializeView() {
@@ -37,9 +48,9 @@ public class MainController {
     
     private void initializeControllers() {
         loginController = new LoginController(mainFrame.getLoginPanel(), authService);
-//        counselorController = new CounselorController(mainFrame.getCounselorsPanel(), databaseService);
-//        appointmentController = new AppointmentController(mainFrame.getAppointmentsPanel(), databaseService);
-//        feedbackController = new FeedbackController(mainFrame.getFeedbackPanel(), databaseService);
+        counselorController = new CounselorController(mainFrame.getCounselorsPanel(), databaseService);
+        appointmentController = new AppointmentController(mainFrame.getAppointmentsPanel(), databaseService);
+        feedbackController = new FeedbackController(mainFrame.getFeedbackPanel(), databaseService);
     }
     
     private void setupEventHandlers() {
@@ -52,9 +63,9 @@ public class MainController {
         mainFrame.showMainView(user);
         mainFrame.setStatusText("Logged in as " + user.getFullName());
         
-//        counselorController.initialize(user.isAdmin());
-//        appointmentController.initialize(user);
-//        feedbackController.initialize(user);
+        counselorController.initialize(user.isAdmin());
+        appointmentController.initialize(user);
+        feedbackController.initialize(user);
     }
     
     private void handleLogout() {
@@ -72,9 +83,9 @@ public class MainController {
             }
             currentUser = null;
             
-//            counselorController.cleanup();
-//            appointmentController.cleanup();
-//            feedbackController.cleanup();
+            counselorController.cleanup();
+            appointmentController.cleanup();
+            feedbackController.cleanup();
             
             mainFrame.showLoginView();
             mainFrame.setStatusText("Logged out");
