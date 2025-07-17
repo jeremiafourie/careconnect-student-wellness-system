@@ -96,7 +96,7 @@ docker compose up -d
 ### Web Application (Milestone 1)
 
 - **Authentication**: Registration/login with BCrypt password hashing
-- **Validation**: Student number (A12345678), email, password strength
+- **Validation**: Student number, email, password strength
 - **Database**: PostgreSQL with proper constraints and SQL injection prevention
 - **Session Management**: HttpSession with logout functionality
 
