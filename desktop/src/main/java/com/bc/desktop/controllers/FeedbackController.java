@@ -163,9 +163,16 @@ public class FeedbackController {
     
     private void updateFeedback(Feedback original) {
         try {
-            // Simple update for demonstration
-            original.setRating(5);
-            original.setComments(original.getComments() + " [Updated from desktop]");
+            // Get the dialog used to edit the feedback
+            FeedbackPanel.FeedbackDialog dialog = feedbackPanel.getLastFeedbackDialog();
+            if (dialog == null || !dialog.isConfirmed()) {
+                return;
+            }
+            
+            // Update the feedback with the dialog values
+            original.setRating(dialog.getRating());
+            original.setComments(dialog.getComments());
+            original.setCategory(dialog.getCategory());
             
             boolean success = databaseService.updateFeedback(original);
             

@@ -21,6 +21,7 @@ public class FeedbackPanel extends JPanel {
     private String[] columnNames = {"ID", "Rating", "Category", "Comments", "Date"};
     private boolean adminMode = false;
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
+    private FeedbackDialog lastFeedbackDialog;
     
     public FeedbackPanel() {
         initializeComponents();
@@ -210,13 +211,17 @@ public class FeedbackPanel extends JPanel {
     }
     
     public void showFeedbackDialog(Feedback feedback, ActionListener submitListener) {
-        FeedbackDialog dialog = new FeedbackDialog(
+        lastFeedbackDialog = new FeedbackDialog(
             (Frame) SwingUtilities.getWindowAncestor(this), feedback);
-        dialog.addSubmitListener(submitListener);
-        dialog.setVisible(true);
+        lastFeedbackDialog.addSubmitListener(submitListener);
+        lastFeedbackDialog.setVisible(true);
     }
     
-    private static class FeedbackDialog extends JDialog {
+    public FeedbackDialog getLastFeedbackDialog() {
+        return lastFeedbackDialog;
+    }
+    
+    public static class FeedbackDialog extends JDialog {
         private JSlider ratingSlider;
         private JComboBox<String> categoryCombo;
         private JTextArea commentsArea;
